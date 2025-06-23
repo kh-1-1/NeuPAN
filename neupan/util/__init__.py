@@ -24,6 +24,7 @@ import os
 import sys
 from math import sqrt, pi, cos, sin
 import numpy as np
+import torch
 import neupan
 
 def time_it(name="Function"):
@@ -284,23 +285,32 @@ def repeat_mk_dirs(path, max_num=100):
 
 def downsample_decimation(mat, m):
     """
-    Downsamples a dim x n matrix to a dim x m matrix using direct sampling uniformly.
-    
-    Parameters:
-        mat: numpy.ndarray of shape (dim, n)
-        m: integer, number of columns in the downsampled matrix (m < n)
-    
-    Returns:
-        numpy.ndarray of shape (dim, m)
+    Downsamples a ``dim x n`` matrix to ``dim x m`` columns using direct sampling.
+
+    This utility previously only supported ``numpy.ndarray`` inputs but is
+    also used with PyTorch tensors inside the library. Indexing a torch tensor
+    with a NumPy array raises an error, leading to a failure during runtime.
+
+    Parameters
+    ----------
+    mat : ``numpy.ndarray`` or ``torch.Tensor``
+        Input matrix with shape ``(dim, n)``.
+    m : int
+        Desired number of columns in the downsampled matrix (``m < n``).
+
+    Returns
+    -------
+    Same type as ``mat`` with shape ``(dim, m)``.
     """
 
     n = mat.shape[1]
-
     if m >= n:
         return mat
-    
-    indices = np.linspace(0, n - 1, m).astype(int)
-    
-    sampled_matrix = mat[:, indices]
-    return sampled_matrix
+
+    if isinstance(mat, np.ndarray):
+        indices = np.linspace(0, n - 1, m).astype(int)
+    else:
+        indices = torch.linspace(0, n - 1, steps=m).long()
+
+    return mat[:, indices]
 
