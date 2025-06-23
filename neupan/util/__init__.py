@@ -57,18 +57,22 @@ def time_it(name="Function"):
 
 
 def file_check(file_name):
-    """
-    Check whether a file exists and return its absolute path.
+    """Return the absolute path for ``file_name`` if it exists.
+
+    The function looks for the file in the following order:
+    ``file_name`` as given, ``sys.path[0]``, ``os.getcwd()``, and finally the
+    NeuPAN package root derived from ``neupan.__file__``. If the file is not
+    found in any of these locations a :class:`FileNotFoundError` is raised.
 
     Args:
-        file_name (str): Name of the file to check.
-        root_path (str, optional): Root path to use if the file is not found.
+        file_name (str): Name of the file to locate.
 
     Returns:
         str: Absolute path of the file if found.
 
     Raises:
-        FileNotFoundError: If the file is not found.
+        FileNotFoundError: If the file does not exist in any of the searched
+            directories.
     """
 
     root_path = os.path.dirname(os.path.dirname(neupan.__file__))
