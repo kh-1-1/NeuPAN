@@ -23,7 +23,6 @@ from neupan.blocks import NRMP, DUNE
 import numpy as np
 from math import inf
 from typing import Optional
-import numpy as np
 from neupan.configuration import to_device, tensor_to_np
 from neupan.util import downsample_decimation
 
