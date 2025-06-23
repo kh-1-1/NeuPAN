@@ -183,7 +183,7 @@ class DUNETrain:
             )
 
         self.optimizer.param_groups[0]["lr"] = float(lr)
-        ful_model_name = None
+        full_model_name = None
 
         print("dataset generating start ...")
         dataset = self.generate_data_set(data_size, data_range)
@@ -269,7 +269,7 @@ class DUNETrain:
                         self.model.state_dict(),
                         self.checkpoint_path + "/" + "model_" + str(i) + ".pth",
                     )
-                    ful_model_name = (
+                    full_model_name = (
                         self.checkpoint_path + "/" + "model_" + str(i) + ".pth"
                     )
 
@@ -295,9 +295,9 @@ class DUNETrain:
                     with open(self.checkpoint_path + "/loss.pkl", "wb") as f:
                         pickle.dump(self.loss_list, f)
 
-        print("finish train, the model is saved in {}".format(ful_model_name))
+        print("finish train, the model is saved in {}".format(full_model_name))
 
-        return ful_model_name
+        return full_model_name
 
     def train_one_epoch(self, train_dataloader, validate=False):
         """
