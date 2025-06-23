@@ -267,11 +267,6 @@ class PAN(torch.nn.Module):
         else:
             return tensor_to_np(self.nrmp_layer.points)
 
-    @property
-    def min_distance(self):
-        return inf if self.no_obs else self.dune_layer.min_distance
-    
-
     def print_once(self, message):
         if not self.printed:
             print(message)
