@@ -44,6 +44,16 @@ cd NeuPAN
 pip install -e .  
 ```
 
+## Baseline Setup
+
+To download baseline implementations referenced in the paper, run:
+
+```bash
+bash scripts/fetch_baselines.sh
+```
+
+This clones available repositories (TEB, AEMCARL, and OBCA) into `baselines/`. See [baselines/README.md](baselines/README.md) for details on additional baselines.
+
 ## Run Examples on IR-SIM
 
 Please Install [IR-SIM](https://github.com/hanruihua/ir-sim) first by:
